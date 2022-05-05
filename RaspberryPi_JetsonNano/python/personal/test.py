@@ -150,7 +150,7 @@ def name_badge():
     write_buffers()
 
 
-FUNC_DICT = {"name_badge": name_badge, "clear": clear}
+FUNC_DICT = {"name_badge": name_badge, "clear": clear, "demo": demo}
 
 
 if __name__ == "__main__":
