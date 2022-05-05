@@ -140,7 +140,7 @@ def write_buffers(buffers=None):
 
 
 def clear():
-    Epd.clear()
+    Epd.Clear()
 
 
 def name_badge():
