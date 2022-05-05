@@ -112,19 +112,17 @@ def setup_epd():
     return epd
 
 
-def get_markers(epd):
-    black_image = Image.new("1", (epd.height, epd.width), 255)
-    red_image = Image.new("1", (epd.height, epd.width), 255)
-
-    class Markers(enum.Enum):
-        Black = ImageDraw.Draw(black_image)
-        Red = ImageDraw.Draw(red_image)
-
-    return Markers
-
-
 Epd = setup_epd()
-Markers = get_markers(Epd)
+
+
+class Images(enum.Enum):
+    Black = Image.new("1", (Epd.height, Epd.width), 255)
+    Red = Image.new("1", (Epd.height, Epd.width), 255)
+
+
+class Markers(enum.Enum):
+    Black = ImageDraw.Draw(Images.Black.value)
+    Red = ImageDraw.Draw(Images.Red.value)
 
 
 def get_font(size=20):
@@ -137,9 +135,14 @@ def draw_text(
     marker.value.text(coords, text, font=get_font(font_size), fill=fill)
 
 
+def write_buffers(buffers=None):
+    Epd.display(Epd.getbuffer(Images.Black.value), Epd.getbuffer(Images.Red.value))
+
+
 def name_badge():
     draw_text("Brad Brown", (10, 0), 30, Markers.Black)
     draw_text("W5BUB", (10, 40), 40, Markers.Red)
+    write_buffers()
 
 
 FUNC_DICT = {"name_badge": name_badge}
