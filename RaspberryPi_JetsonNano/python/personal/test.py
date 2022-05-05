@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 import enum
-import sys
-import typing
 import os
 import pathlib
+import sys
+import typing
 
 python_root = pathlib.Path(__file__).parents[1]
 picdir = python_root / "pic"
@@ -13,9 +13,10 @@ if os.path.exists(libdir):
     sys.path.append(str(libdir))
 
 import logging
-from waveshare_epd import epd2in13bc
 import time
+
 from PIL import Image, ImageDraw, ImageFont
+from waveshare_epd import epd2in13bc
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -108,7 +109,6 @@ def demo():
 def setup_epd():
     epd = epd2in13bc.EPD()
     epd.init()
-    epd.Clear()
     return epd
 
 
@@ -139,13 +139,18 @@ def write_buffers(buffers=None):
     Epd.display(Epd.getbuffer(Images.Black.value), Epd.getbuffer(Images.Red.value))
 
 
+def clear():
+    Epd.clear()
+
+
 def name_badge():
+    clear()
     draw_text("Brad Brown", (10, 0), 30, Markers.Black)
     draw_text("W5BUB", (10, 40), 40, Markers.Red)
     write_buffers()
 
 
-FUNC_DICT = {"name_badge": name_badge}
+FUNC_DICT = {"name_badge": name_badge, "clear": clear}
 
 
 if __name__ == "__main__":
@@ -159,5 +164,6 @@ if __name__ == "__main__":
         logging.info(e)
     except KeyboardInterrupt:
         logging.info("ctrl + c")
+    finally:
         epd2in13bc.epdconfig.module_exit()
         exit()
