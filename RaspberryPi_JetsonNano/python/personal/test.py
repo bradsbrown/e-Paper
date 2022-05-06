@@ -135,11 +135,24 @@ def name_badge():
     Epd.sleep()
 
 
-FUNC_DICT = {"name_badge": name_badge, "clear": clear, "demo": demo}
+def name_badge_img():
+    clear()
+    black_img = Image.open(picdir / "badge_b.bmp")
+    red_img = Image.open(picdir / "badge_ry.bmp")
+    Epd.display(Epd.getbuffer(black_img), Epd.getbuffer(red_img))
+    Epd.sleep()
+
+
+FUNC_DICT = {
+    "name_badge": name_badge,
+    "badge_img": name_badge_img,
+    "clear": clear,
+    "demo": demo,
+}
 
 
 if __name__ == "__main__":
-    func = name_badge
+    func = name_badge_img
     if len(sys.argv) > 1:
         func = FUNC_DICT.get(sys.argv[1], func)
 
