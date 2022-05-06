@@ -129,8 +129,9 @@ def clear():
 
 def name_badge():
     clear()
-    draw_text("Brad Brown", (10, 0), 30, Markers.Black)
-    draw_text("W5BUB", (10, 40), 40, Markers.Red)
+    Markers.Red.value.rectangle((0, 0, Epd.height, Epd.width), fill=0)
+    draw_text("Brad Brown", (15, 0), 30, Markers.Black, fill=1)
+    draw_text("W5BUB", (10, 40), 40, Markers.Red, fill=1)
     write_buffers()
     Epd.sleep()
 
@@ -152,7 +153,7 @@ FUNC_DICT = {
 
 
 if __name__ == "__main__":
-    func = name_badge_img
+    func = name_badge
     if len(sys.argv) > 1:
         func = FUNC_DICT.get(sys.argv[1], func)
 
@@ -162,6 +163,6 @@ if __name__ == "__main__":
         logging.info(e)
     except KeyboardInterrupt:
         logging.info("ctrl + c")
-    finally:
         epd2in13bc.epdconfig.module_exit()
+    finally:
         exit()
