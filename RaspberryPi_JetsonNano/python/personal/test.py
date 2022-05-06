@@ -130,8 +130,8 @@ def clear():
 def name_badge():
     clear()
     Markers.Red.value.rectangle((0, 0, Epd.height, Epd.width), fill=0)
-    draw_text("Brad Brown", (15, 0), 30, Markers.Black, fill=1)
-    draw_text("W5BUB", (10, 40), 40, Markers.Red, fill=1)
+    draw_text("Brad Brown", (20, 0), 30, Markers.Black, fill=1)
+    draw_text("W5BUB", (25, 40), 40, Markers.Red, fill=1)
     write_buffers()
     Epd.sleep()
 
